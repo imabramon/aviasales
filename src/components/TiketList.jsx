@@ -7,11 +7,23 @@ const Container = styled.div``;
 const TiketList = (props) => {
   return (
     <Container>
-      <Tiket />
-      <Tiket />
-      <Tiket />
-      <Tiket />
-      <Tiket />
+      <Tiket
+        price="13400"
+        flightsData={[
+          {
+            cites: 'MOW – HKT',
+            times: '10:45 – 08:00',
+            travelTime: '21ч 15м',
+            transfers: ['HKG', 'JNB'],
+          },
+          {
+            cites: 'MOW – HKT',
+            times: '10:45 – 08:00',
+            travelTime: '21ч 15м',
+            transfers: ['HKG', 'JNB'],
+          },
+        ]}
+      />
     </Container>
   );
 };

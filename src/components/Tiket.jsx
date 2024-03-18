@@ -10,41 +10,39 @@ const InfoItem = styled.div``;
 const InfoItemTitle = styled.h3``;
 const InfoItemDescription = styled.span``;
 
+const formatPrice = (value) => `${value} Р`;
+const formatTransfers = (transfers) => transfers.join(', ');
+const formatTransfersCount = (count) => `${count} пересадки`;
+
 const Tiket = (props) => {
+  const { price, flightsData } = props;
+
+  const flights = flightsData.map((flightData) => {
+    const { cites, times, travelTime, transfers } = flightData;
+    const transfersCount = transfers.length;
+    return (
+      <Flight>
+        <InfoItem>
+          <InfoItemTitle>{cites}</InfoItemTitle>
+          <InfoItemDescription>{times}</InfoItemDescription>
+        </InfoItem>
+        <InfoItem>
+          <InfoItemTitle>В пути</InfoItemTitle>
+          <InfoItemDescription>{travelTime}</InfoItemDescription>
+        </InfoItem>
+        <InfoItem>
+          <InfoItemTitle> {formatTransfersCount(transfersCount)}</InfoItemTitle>
+          <InfoItemDescription>{formatTransfers(transfers)}</InfoItemDescription>
+        </InfoItem>
+      </Flight>
+    );
+  });
+
   return (
     <Container>
-      <Price>13 400 Р</Price>
+      <Price>{formatPrice(price)}</Price>
       <CompanyLogo />
-      <Flights>
-        <Flight>
-          <InfoItem>
-            <InfoItemTitle>MOW – HKT</InfoItemTitle>
-            <InfoItemDescription>10:45 – 08:00</InfoItemDescription>
-          </InfoItem>
-          <InfoItem>
-            <InfoItemTitle>В пути</InfoItemTitle>
-            <InfoItemDescription>21ч 15м</InfoItemDescription>
-          </InfoItem>
-          <InfoItem>
-            <InfoItemTitle>2 пересадки</InfoItemTitle>
-            <InfoItemDescription>HKG, JNB</InfoItemDescription>
-          </InfoItem>
-        </Flight>
-        <Flight>
-          <InfoItem>
-            <InfoItemTitle>MOW – HKT</InfoItemTitle>
-            <InfoItemDescription>10:45 – 08:00</InfoItemDescription>
-          </InfoItem>
-          <InfoItem>
-            <InfoItemTitle>В пути</InfoItemTitle>
-            <InfoItemDescription>21ч 15м</InfoItemDescription>
-          </InfoItem>
-          <InfoItem>
-            <InfoItemTitle>2 пересадки</InfoItemTitle>
-            <InfoItemDescription>HKG, JNB</InfoItemDescription>
-          </InfoItem>
-        </Flight>
-      </Flights>
+      <Flights>{flights}</Flights>
     </Container>
   );
 };
