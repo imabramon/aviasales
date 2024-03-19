@@ -1,5 +1,5 @@
 import React from 'react';
-import logoSrc from '../assets/react.svg';
+import logoSrc from '../assets/Logo.svg';
 import styled from 'styled-components';
 
 const Image = styled.img``;
