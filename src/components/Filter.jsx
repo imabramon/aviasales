@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   font-family: 'Open Sans';
+  font-size: 12px;
   border-radius: 6px;
   display: flex;
   gap: 0;
@@ -22,6 +23,7 @@ const Item = styled.div`
   border-right: 1px #dfe5ec solid;
   background-color: ${(props) => (props.$isSelected ? '#2196F3' : 'white')};
   color: ${(props) => (props.$isSelected ? 'white' : 'black')};
+  text-transform: uppercase;
   &:last-child {
     border-right: none;
   }
