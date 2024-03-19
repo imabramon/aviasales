@@ -1,13 +1,69 @@
 import React from 'react';
 import styled from 'styled-components';
+import checkboxImage from '../assets/checkbox.svg';
+import checkboxCheckedImage from '../assets/checkbox--checked.svg';
 
-const List = styled.ul``;
+const List = styled.ul`
+  list-style: none;
+`;
 const ListItem = styled.li``;
-const Label = styled.label``;
-const Checkbox = styled.input.attrs({ type: 'checkbox' })``;
-const LabelTitle = styled.span``;
-const Container = styled.div``;
-const Title = styled.h2``;
+const Label = styled.label`
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+
+  width: 232px;
+  height: 40px;
+  background-color: white;
+  padding-left: 20px;
+
+  &:hover {
+    background-color: #f1fcff;
+  }
+
+  &:before {
+    position: relative;
+    content: url(${checkboxImage});
+    width: 20px;
+    height: 20px;
+  }
+
+  &:has(:checked)::before {
+    content: url(${checkboxCheckedImage});
+  }
+`;
+const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+`;
+const LabelTitle = styled.span`
+  padding-left: 10px;
+  font-size: 13px;
+  line-height: 20px;
+  color: #4a4a4a;
+`;
+const Container = styled.div`
+  font-family: 'Open Sans';
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 232px;
+  height: fit-content;
+  padding-top: 20px;
+  border-radius: 5px;
+  background-color: white;
+  overflow: hidden;
+  padding-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 8px;
+`;
+const Title = styled.h2`
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding-left: 20px;
+`;
 
 const TransferFilter = () => {
   const filtersName = ['Все', 'Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'];
