@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+import { bindActionCreators } from 'redux';
 
 const Container = styled.div`
   font-family: 'Open Sans';
@@ -30,12 +33,18 @@ const Item = styled.div`
 `;
 
 const Filter = (props) => {
-  const { selected = 'Самый дешевый' } = props;
+  const { selected, changeFilter } = props;
 
   const filtersName = ['Самый дешевый', 'Самый быстрый', 'Оптимальный'];
 
   const filters = filtersName.map((name, index) => (
-    <Item key={index} $isSelected={name === selected}>
+    <Item
+      key={index}
+      $isSelected={name === selected}
+      onClick={() => {
+        changeFilter(name);
+      }}
+    >
       {name}
     </Item>
   ));
@@ -43,4 +52,15 @@ const Filter = (props) => {
   return <Container>{filters}</Container>;
 };
 
-export default Filter;
+const mapStateToProps = (state) => ({
+  selected: state.currentFilter,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  const { applyFilter } = bindActionCreators(actions, dispatch);
+  return {
+    changeFilter: applyFilter,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
