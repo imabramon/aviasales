@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
+  font-family: 'Open Sans';
   box-sizing: border-box;
   width: 502px;
   height: 184px;
