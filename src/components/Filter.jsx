@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -33,15 +33,17 @@ const Item = styled.div`
 `;
 
 const Filter = (props) => {
-  const { selected, changeFilter } = props;
-
+  const { changeFilter } = props;
   const filtersName = ['Самый дешевый', 'Самый быстрый', 'Оптимальный'];
+
+  const [selected, setFilter] = useState('Самый дешевый');
 
   const filters = filtersName.map((name, index) => (
     <Item
       key={index}
       $isSelected={name === selected}
       onClick={() => {
+        setFilter(name);
         changeFilter(name);
       }}
     >
