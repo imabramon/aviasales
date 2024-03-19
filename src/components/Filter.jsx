@@ -2,21 +2,41 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  border-radius: 8px;
+  font-family: 'Open Sans';
+  border-radius: 6px;
+  display: flex;
+  gap: 0;
+  border: 1px #dfe5ec solid;
+  width: fit-content;
+  box-sizing: border-box;
+  overflow: hidden;
 `;
 
+// prettier-ignore
 const Item = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 50px;
+  width: 168px;
+  border-right: 1px #dfe5ec solid;
+  background-color: ${(props) => (props.$isSelected ? '#2196F3' : 'white')};
+  color: ${(props) => (props.$isSelected ? 'white' : 'black')};
+  &:last-child {
+    border-right: none;
+  }
 `;
 
 const Filter = (props) => {
-  const { selected } = props;
+  const { selected = 'Самый дешевый' } = props;
 
   const filtersName = ['Самый дешевый', 'Самый быстрый', 'Оптимальный'];
 
-  const filters = filtersName.map((name, index) => <Item key={index}>{name}</Item>);
+  const filters = filtersName.map((name, index) => (
+    <Item key={index} $isSelected={name === selected}>
+      {name}
+    </Item>
+  ));
 
   return <Container>{filters}</Container>;
 };
