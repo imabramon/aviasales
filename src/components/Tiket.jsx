@@ -13,6 +13,7 @@ const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 55px 1fr;
   padding: 20px;
+  background-color: white;
 `;
 const Price = styled.span`
   grid-area: price;
