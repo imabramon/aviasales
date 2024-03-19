@@ -1,5 +1,5 @@
 export const ActionTypes = {
-  loadMore: 'loadMore',
-  applyFilter: 'applyFilter',
-  applyTransferFilter: 'applyTransferFilter',
+  load: 'load',
+  reaload: 'reload',
+  sort: 'sort',
 };
