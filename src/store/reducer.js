@@ -1,5 +1,5 @@
 import { ActionTypes } from './actionTypes';
-import { sortLowPrice, sortFast, sortOptimal, filterAll, filterTransfer, makeTiketData } from './tikets';
+import { sortLowPrice, sortFast, sortOptimal, filterAll, filterTransfer, makeTiketData } from '../utils/tikets';
 
 const sortFnByFilter = {
   'Самый дешевый': sortLowPrice,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../store/actions';
 import { bindActionCreators } from 'redux';
 
 const Container = styled.div`
