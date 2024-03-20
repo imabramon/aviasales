@@ -33,18 +33,15 @@ const Item = styled.div`
 `;
 
 const Filter = (props) => {
-  const { changeFilter } = props;
+  const { selected, changeSort } = props;
   const filtersName = ['Самый дешевый', 'Самый быстрый', 'Оптимальный'];
-
-  const [selected, setFilter] = useState('Самый дешевый');
 
   const filters = filtersName.map((name, index) => (
     <Item
       key={index}
       $isSelected={name === selected}
       onClick={() => {
-        setFilter(name);
-        changeFilter(name);
+        changeSort(name);
       }}
     >
       {name}
@@ -55,13 +52,13 @@ const Filter = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  selected: state.currentFilter,
+  selected: state.currentSort,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  const { applyFilter } = bindActionCreators(actions, dispatch);
+  const { changeSort } = bindActionCreators(actions, dispatch);
   return {
-    changeFilter: applyFilter,
+    changeSort,
   };
 };
 
