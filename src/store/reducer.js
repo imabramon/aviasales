@@ -1,46 +1,5 @@
 import { ActionTypes } from './actionTypes';
-import { sortLowPrice, sortFast, sortOptimal, filterAll, filterTransfer, makeTiketData } from '../utils/tikets';
-
-const sortFnByFilter = {
-  'Самый дешевый': sortLowPrice,
-  'Самый быстрый': sortFast,
-  // prettier-ignore
-  'Оптимальный': sortOptimal,
-};
-
-const sortTikets = (tikets, filter) => {
-  if (!(filter in sortFnByFilter)) {
-    throw new Error('Нет такой сортировки');
-  }
-
-  return tikets.toSorted(sortFnByFilter[filter]);
-};
-
-const filterFnByName = {
-  Все: filterAll,
-  'Без пересадок': filterTransfer(0),
-  '1 пересадка': filterTransfer(1),
-  '2 пересадки': filterTransfer(2),
-  '3 пересадки': filterTransfer(3),
-};
-
-const orFilter = (filterFns) => {
-  return (tiket) => {
-    for (const filter of filterFns) {
-      if (filter(tiket)) return true;
-    }
-    return false;
-  };
-};
-
-const filterTikets = (tikets, filter) => {
-  const filterFns = Object.keys(filter)
-    .map((filter) => filterFnByName[filter])
-    .filter((x) => x);
-  const filterFn = orFilter(filterFns);
-
-  return tikets.filter(filterFn);
-};
+import { makeTiketData } from '../utils/tikets';
 
 const initialState = {
   searchId: null,
@@ -53,7 +12,8 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   const { type } = action;
-  // console.log(type);
+  console.log(action);
+  console.log(state);
   switch (type) {
     case ActionTypes.load: {
       const { tikets } = action.payload;
@@ -61,7 +21,7 @@ export const reducer = (state = initialState, action) => {
     }
     case ActionTypes.changeSort: {
       const { sort } = action.payload;
-      return { ...state, currentSort: sort, tikets: sortTikets(state.tikets, sort) };
+      return { ...state, currentSort: sort };
     }
 
     case ActionTypes.changeFilter: {
@@ -75,17 +35,13 @@ export const reducer = (state = initialState, action) => {
         newFilter[filter] = true;
       }
 
-      const newTikets = filterTikets(state.tikets, newFilter);
-
-      return { ...state, currentFilter: newFilter, tikets: newTikets };
+      return { ...state, currentFilter: newFilter };
     }
 
     case ActionTypes.loadMore: {
-      const { currentFilter, currentSort, tikets: oldTikets } = state;
+      const { tikets: oldTikets } = state;
       const { tikets } = action.payload;
       const newTikets = [...oldTikets, ...tikets];
-      const sortedTikets = sortTikets(newTikets, currentSort);
-      const filtredTikets = filterTikets(sortedTikets, currentFilter);
 
       return { ...state, tikets: filtredTikets };
     }

@@ -46,3 +46,44 @@ export const makeTiketData = (id) => ({
     },
   ],
 });
+
+const sortFnByFilter = {
+  'Самый дешевый': sortLowPrice,
+  'Самый быстрый': sortFast,
+  // prettier-ignore
+  'Оптимальный': sortOptimal,
+};
+
+export const sortTikets = (tikets, filter) => {
+  if (!(filter in sortFnByFilter)) {
+    throw new Error('Нет такой сортировки');
+  }
+
+  return tikets.toSorted(sortFnByFilter[filter]);
+};
+
+const filterFnByName = {
+  Все: filterAll,
+  'Без пересадок': filterTransfer(0),
+  '1 пересадка': filterTransfer(1),
+  '2 пересадки': filterTransfer(2),
+  '3 пересадки': filterTransfer(3),
+};
+
+const orFilter = (filterFns) => {
+  return (tiket) => {
+    for (const filter of filterFns) {
+      if (filter(tiket)) return true;
+    }
+    return false;
+  };
+};
+
+export const filterTikets = (tikets, filter) => {
+  const filterFns = Object.keys(filter)
+    .map((filter) => filterFnByName[filter])
+    .filter((x) => x);
+  const filterFn = orFilter(filterFns);
+
+  return tikets.filter(filterFn);
+};
