@@ -43,7 +43,7 @@ export const reducer = (state = initialState, action) => {
       const { tikets } = action.payload;
       const newTikets = [...oldTikets, ...tikets];
 
-      return { ...state, tikets: filtredTikets };
+      return { ...state, tikets: newTikets };
     }
     default:
       return state;
