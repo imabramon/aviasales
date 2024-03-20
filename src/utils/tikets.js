@@ -87,3 +87,14 @@ export const filterTikets = (tikets, filter) => {
 
   return tikets.filter(filterFn);
 };
+
+export const makeTiketFromJSON = (json) => ({
+  id: Date.now(),
+  price: json.price,
+  flights: json.segments.map((segment) => ({
+    cites: `${segment.origin} - ${segment.destination}`,
+    time: new Date(segment.date),
+    travelTime: segment.duration,
+    transfers: segment.stops,
+  })),
+});
