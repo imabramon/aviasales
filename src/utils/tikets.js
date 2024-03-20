@@ -1,4 +1,4 @@
-export const getTime = (tiket) => tiket.flights.map(({ time }) => time).reduce((sum, x) => sum + x, 0);
+export const getTime = (tiket) => tiket.flights.map(({ travelTime }) => travelTime).reduce((sum, x) => sum + x, 0);
 
 export const sortLowPrice = (a, b) => a.price - b.price;
 
@@ -18,21 +18,31 @@ export const filterTransfer = (transferCount) => (tiket) => {
   return tiketTransferCount === transferCount;
 };
 
+const randomPrice = () => Math.floor(Math.random() * 10000 + 10000);
+
+const randomTime = () => Math.floor(Math.random() * 180 + 180);
+
+const randomTransfers = () => {
+  const length = Math.floor(Math.random() * 4);
+  if (length === 0) return [];
+  return Array.from({ length }).fill('YAR');
+};
+
 export const makeTiketData = (id) => ({
   id,
-  price: 13400,
+  price: randomPrice(),
   flights: [
     {
       cites: 'MOW – HKT',
       times: '10:45 – 08:00',
-      travelTime: '21ч 15м',
-      transfers: ['HKG', 'JNB'],
+      travelTime: randomTime(),
+      transfers: randomTransfers(),
     },
     {
       cites: 'MOW – HKT',
       times: '10:45 – 08:00',
-      travelTime: '21ч 15м',
-      transfers: ['HKG', 'JNB'],
+      travelTime: randomTime(),
+      transfers: randomTransfers(),
     },
   ],
 });
