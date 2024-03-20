@@ -33,14 +33,14 @@ export const makeTiketData = (id) => ({
   price: randomPrice(),
   flights: [
     {
-      cites: 'MOW – HKT',
-      times: '10:45 – 08:00',
+      cites: ['MOV', 'YAR'],
+      date: new Date(),
       travelTime: randomTime(),
       transfers: randomTransfers(),
     },
     {
-      cites: 'MOW – HKT',
-      times: '10:45 – 08:00',
+      cites: ['MOV', 'YAR'],
+      date: new Date(),
       travelTime: randomTime(),
       transfers: randomTransfers(),
     },
@@ -92,8 +92,8 @@ export const makeTiketFromJSON = (json) => ({
   id: Date.now(),
   price: json.price,
   flights: json.segments.map((segment) => ({
-    cites: `${segment.origin} - ${segment.destination}`,
-    time: new Date(segment.date),
+    cites: [segment.origin, segment.destination],
+    date: new Date(segment.date),
     travelTime: segment.duration,
     transfers: segment.stops,
   })),
