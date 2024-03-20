@@ -1,5 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import {
+  formatCities,
+  formatFlightTime,
+  formatTravelTime,
+  formatTransfersCount,
+  formatTransfers,
+  formatPrice,
+} from '../utils/formatting';
 
 const Container = styled.div`
   font-family: 'Open Sans';
@@ -61,25 +69,21 @@ const InfoItemDescription = styled.span`
   line-height: 21px;
 `;
 
-const formatPrice = (value) => `${value} Р`;
-const formatTransfers = (transfers) => transfers.join(', ');
-const formatTransfersCount = (count) => `${count} пересадки`;
-
 const Tiket = (props) => {
   const { price, flights: flightsData } = props;
 
   const flights = flightsData.map((flightData) => {
-    const { cites, times, travelTime, transfers } = flightData;
+    const { cites, date, travelTime, transfers } = flightData;
     const transfersCount = transfers.length;
     return (
       <Flight>
         <InfoItem>
-          <InfoItemTitle>{cites}</InfoItemTitle>
-          <InfoItemDescription>{times}</InfoItemDescription>
+          <InfoItemTitle>{formatCities(cites)}</InfoItemTitle>
+          <InfoItemDescription>{formatFlightTime(date, travelTime)}</InfoItemDescription>
         </InfoItem>
         <InfoItem>
           <InfoItemTitle>В пути</InfoItemTitle>
-          <InfoItemDescription>{travelTime}</InfoItemDescription>
+          <InfoItemDescription>{formatTravelTime(travelTime)}</InfoItemDescription>
         </InfoItem>
         <InfoItem>
           <InfoItemTitle> {formatTransfersCount(transfersCount)}</InfoItemTitle>
