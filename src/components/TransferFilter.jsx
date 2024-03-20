@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import checkboxImage from '../assets/checkbox.svg';
 import checkboxCheckedImage from '../assets/checkbox--checked.svg';
+import { connect } from 'react-redux';
+import { bindActionCreators } from '@reduxjs/toolkit';
+import * as actions from '../store/actions';
 
 const List = styled.ul`
   list-style: none;
@@ -65,12 +68,12 @@ const Title = styled.h2`
   padding-left: 20px;
 `;
 
-const TransferFilter = () => {
+const TransferFilter = ({ filter, changeFilter }) => {
   const filtersName = ['Все', 'Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'];
   const filters = filtersName.map((name) => (
     <ListItem>
       <Label>
-        <Checkbox />
+        <Checkbox checked={name in filter} onChange={() => changeFilter(name)} />
         <LabelTitle>{name}</LabelTitle>
       </Label>
     </ListItem>
@@ -84,4 +87,16 @@ const TransferFilter = () => {
   );
 };
 
-export default TransferFilter;
+const mapStateToProps = (state) => ({
+  filter: state.currentFilter,
+});
+
+const mapDispathToProps = (dispatch) => {
+  const { changeFilter } = bindActionCreators(actions, dispatch);
+
+  return {
+    changeFilter,
+  };
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(TransferFilter);
