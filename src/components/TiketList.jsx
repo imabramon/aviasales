@@ -1,6 +1,7 @@
 import React from 'react';
 import Tiket from './Tiket';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -8,45 +9,16 @@ const Container = styled.div`
   gap: 20px;
 `;
 
-const TiketList = (props) => {
-  return (
-    <Container>
-      <Tiket
-        price="13400"
-        flightsData={[
-          {
-            cites: 'MOW – HKT',
-            times: '10:45 – 08:00',
-            travelTime: '21ч 15м',
-            transfers: ['HKG', 'JNB'],
-          },
-          {
-            cites: 'MOW – HKT',
-            times: '10:45 – 08:00',
-            travelTime: '21ч 15м',
-            transfers: ['HKG', 'JNB'],
-          },
-        ]}
-      />
-      <Tiket
-        price="13400"
-        flightsData={[
-          {
-            cites: 'MOW – HKT',
-            times: '10:45 – 08:00',
-            travelTime: '21ч 15м',
-            transfers: ['HKG', 'JNB'],
-          },
-          {
-            cites: 'MOW – HKT',
-            times: '10:45 – 08:00',
-            travelTime: '21ч 15м',
-            transfers: ['HKG', 'JNB'],
-          },
-        ]}
-      />
-    </Container>
-  );
+const TiketList = ({ tiketsData }) => {
+  const tikets = tiketsData.map((tiket) => {
+    console.log(tiket);
+    return <Tiket key={tiket.id} {...tiket} />;
+  });
+  return <Container>{tikets}</Container>;
 };
 
-export default TiketList;
+const mapStateToProps = (state) => ({
+  tiketsData: state.tikets,
+});
+
+export default connect(mapStateToProps)(TiketList);

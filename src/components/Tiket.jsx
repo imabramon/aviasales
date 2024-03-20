@@ -66,7 +66,7 @@ const formatTransfers = (transfers) => transfers.join(', ');
 const formatTransfersCount = (count) => `${count} пересадки`;
 
 const Tiket = (props) => {
-  const { price, flightsData } = props;
+  const { price, flights: flightsData } = props;
 
   const flights = flightsData.map((flightData) => {
     const { cites, times, travelTime, transfers } = flightData;
