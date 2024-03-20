@@ -1,5 +1,6 @@
 export const ActionTypes = {
   load: 'load',
-  reaload: 'reload',
-  sort: 'sort',
+  changeSort: 'changeSort',
+  changeFilter: 'changeFilter',
+  loadMore: 'loadMore',
 };
