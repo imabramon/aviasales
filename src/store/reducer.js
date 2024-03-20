@@ -41,7 +41,7 @@ export const reducer = (state = initialState, action) => {
     case ActionTypes.loadMore: {
       const { tikets: oldTikets } = state;
       const { tikets } = action.payload;
-      const newTikets = [...oldTikets, ...tikets];
+      const newTikets = [...oldTikets, ...tikets].map((tiket, index) => ({ ...tiket, id: index }));
 
       return { ...state, tikets: newTikets };
     }

@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import * as actions from '../store/actions';
+import { bindActionCreators } from 'redux';
 
 const Button = styled.button`
   box-shadow: none;
@@ -17,8 +20,16 @@ const Button = styled.button`
   text-transform: uppercase;
 `;
 
-const LoadMoreButton = () => {
-  return <Button>Показать еще 5 билетов</Button>;
+const LoadMoreButton = ({ loadMore }) => {
+  return <Button onClick={() => loadMore()}>Показать еще 5 билетов</Button>;
 };
 
-export default LoadMoreButton;
+const mapDispatchToProps = (dispatch) => {
+  const { loadMore } = bindActionCreators(actions, dispatch);
+
+  return {
+    loadMore,
+  };
+};
+
+export default connect(() => ({}), mapDispatchToProps)(LoadMoreButton);
