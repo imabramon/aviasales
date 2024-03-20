@@ -67,14 +67,17 @@ export const reducer = (state = initialState, action) => {
     case ActionTypes.changeFilter: {
       const { filter } = action.payload;
       const { currentFilter } = state;
+      const newFilter = { ...currentFilter };
 
       if (filter in currentFilter) {
-        const newFilter = { ...currentFilter };
         delete newFilter[filter];
-        const newTikets = filterTikets(state.tikets, filter);
-
-        return { ...state, currentFilter: newFilter, tikets: newTikets };
+      } else {
+        newFilter[filter] = true;
       }
+
+      const newTikets = filterTikets(state.tikets, newFilter);
+
+      return { ...state, currentFilter: newFilter, tikets: newTikets };
     }
 
     case ActionTypes.loadMore: {
