@@ -70,7 +70,7 @@ const InfoItemDescription = styled.span`
 `;
 
 const Tiket = (props) => {
-  const { price, flights: flightsData } = props;
+  const { price, flights: flightsData, companyLogoSrc } = props;
 
   const flights = flightsData.map((flightData) => {
     const { cites, date, travelTime, transfers } = flightData;
@@ -96,7 +96,7 @@ const Tiket = (props) => {
   return (
     <Container>
       <Price>{formatPrice(price)}</Price>
-      <CompanyLogo />
+      <CompanyLogo src={companyLogoSrc} />
       <Flights>{flights}</Flights>
     </Container>
   );

@@ -90,9 +90,12 @@ export const filterTikets = (tikets, filter) => {
   return tikets.filter(filterFn);
 };
 
+const makeCompanyLogoSrc = (name) => `https://pics.avs.io/99/36/${name}.png`;
+
 export const makeTiketFromJSON = (json) => ({
   id: uuid(),
   price: json.price,
+  companyLogoSrc: makeCompanyLogoSrc(json.carrier),
   flights: json.segments.map((segment) => ({
     cites: [segment.origin, segment.destination],
     date: new Date(segment.date),
