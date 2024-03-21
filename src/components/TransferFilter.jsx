@@ -26,13 +26,13 @@ const Label = styled.label`
 
   &:before {
     position: relative;
-    content: url(${checkboxImage});
+    content: url('/checkbox--checked.svg');
     width: 20px;
     height: 20px;
   }
 
   &:has(:checked)::before {
-    content: url(${checkboxCheckedImage});
+    content: url('/checkbox.svg');
   }
 `;
 const Checkbox = styled.input.attrs({ type: 'checkbox' })`
