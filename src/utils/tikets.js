@@ -8,8 +8,13 @@ export const sortFast = (a, b) => {
   return getTime(a) - getTime(b);
 };
 
+const getTrasfersCount = (tiket) =>
+  tiket.flights.map(({ transfers }) => transfers.length).reduce((sum, x) => sum + x, 0);
+
+const getOptimalValue = (tiket) => (getTime(tiket) / 60) * 1000 + tiket.price + getTrasfersCount(tiket) * 3000;
+
 export const sortOptimal = (a, b) => {
-  return (getTime(a) / 60) * 1000 + a.price - (getTime(b) / 60) * 1000 + b.price;
+  return getOptimalValue(a) - getOptimalValue(b);
 };
 
 export const filterAll = () => true;
