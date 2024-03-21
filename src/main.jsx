@@ -28,4 +28,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 );
 
-getTikets().then((res) => console.log('res, ', res));
+//getTikets().then((res) => console.log('res, ', res));

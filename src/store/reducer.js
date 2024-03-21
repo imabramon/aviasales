@@ -5,9 +5,7 @@ const initialState = {
   maxView: 5,
   currentSort: 'Самый дешевый',
   currentFilter: { Все: true },
-  tikets: Array.from({ length: 100 })
-    .fill(0)
-    .map((_, index) => makeTiketData(index)),
+  tikets: [],
 };
 
 export const reducer = (state = initialState, action) => {
@@ -16,8 +14,14 @@ export const reducer = (state = initialState, action) => {
   console.log(state);
   switch (type) {
     case ActionTypes.load: {
+      const { currentSort } = state;
       const { tikets } = action.payload;
-      return { ...state, tikets };
+      console.log(tikets);
+      return {
+        ...state,
+        tikets: sortTikets(tikets, currentSort),
+        maxView: 5,
+      };
     }
     case ActionTypes.changeSort: {
       const { sort } = action.payload;
@@ -26,6 +30,7 @@ export const reducer = (state = initialState, action) => {
         ...state,
         currentSort: sort,
         tikets: sortTikets(tikets, sort),
+        maxView: 5,
       };
     }
 

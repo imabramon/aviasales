@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 export const getTime = (tiket) => tiket.flights.map(({ travelTime }) => travelTime).reduce((sum, x) => sum + x, 0);
 
 export const sortLowPrice = (a, b) => a.price - b.price;
@@ -89,7 +91,7 @@ export const filterTikets = (tikets, filter) => {
 };
 
 export const makeTiketFromJSON = (json) => ({
-  id: Date.now(),
+  id: uuid(),
   price: json.price,
   flights: json.segments.map((segment) => ({
     cites: [segment.origin, segment.destination],
