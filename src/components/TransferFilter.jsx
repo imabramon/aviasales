@@ -24,13 +24,13 @@ const Label = styled.label`
 
   &:before {
     position: relative;
-    content: url('/checkbox--checked.svg');
+    content: url('/checkbox.svg');
     width: 20px;
     height: 20px;
   }
 
   &:has(:checked)::before {
-    content: url('/checkbox.svg');
+    content: url('/checkbox--checked.svg');
   }
 `;
 const Checkbox = styled.input.attrs({ type: 'checkbox' })`
