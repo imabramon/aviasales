@@ -70,8 +70,8 @@ const Title = styled.h2`
 
 const TransferFilter = ({ filter, changeFilter }) => {
   const filtersName = ['Все', 'Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'];
-  const filters = filtersName.map((name) => (
-    <ListItem>
+  const filters = filtersName.map((name, index) => (
+    <ListItem key={index}>
       <Label>
         <Checkbox checked={name in filter} onChange={() => changeFilter(name)} />
         <LabelTitle>{name}</LabelTitle>

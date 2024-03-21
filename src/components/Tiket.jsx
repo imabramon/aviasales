@@ -72,11 +72,12 @@ const InfoItemDescription = styled.span`
 const Tiket = (props) => {
   const { price, flights: flightsData, companyLogoSrc } = props;
 
-  const flights = flightsData.map((flightData) => {
-    const { cites, date, travelTime, transfers } = flightData;
+  const flights = flightsData.map((flightData, index) => {
+    const { cites, dateData, travelTime, transfers } = flightData;
+    const date = new Date(dateData);
     const transfersCount = transfers.length;
     return (
-      <Flight>
+      <Flight key={index}>
         <InfoItem>
           <InfoItemTitle>{formatCities(cites)}</InfoItemTitle>
           <InfoItemDescription>{formatFlightTime(date, travelTime)}</InfoItemDescription>

@@ -35,25 +35,6 @@ const randomTransfers = () => {
   return Array.from({ length }).fill('YAR');
 };
 
-export const makeTiketData = (id) => ({
-  id,
-  price: randomPrice(),
-  flights: [
-    {
-      cites: ['MOV', 'YAR'],
-      date: new Date(),
-      travelTime: randomTime(),
-      transfers: randomTransfers(),
-    },
-    {
-      cites: ['MOV', 'YAR'],
-      date: new Date(),
-      travelTime: randomTime(),
-      transfers: randomTransfers(),
-    },
-  ],
-});
-
 const sortFnByFilter = {
   'Самый дешевый': sortLowPrice,
   'Самый быстрый': sortFast,
@@ -103,7 +84,7 @@ export const makeTiketFromJSON = (json) => ({
   companyLogoSrc: makeCompanyLogoSrc(json.carrier),
   flights: json.segments.map((segment) => ({
     cites: [segment.origin, segment.destination],
-    date: new Date(segment.date),
+    dateData: segment.date,
     travelTime: segment.duration,
     transfers: segment.stops,
   })),

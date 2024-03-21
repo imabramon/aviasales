@@ -1,5 +1,4 @@
 import { getTikets } from '../services/aviasalesService';
-import { makeTiketData } from '../utils/tikets';
 import { ActionTypes } from './actionTypes';
 
 export const changeSort = (sort) => ({

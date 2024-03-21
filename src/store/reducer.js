@@ -1,5 +1,5 @@
 import { ActionTypes } from './actionTypes';
-import { makeTiketData, sortTikets } from '../utils/tikets';
+import { sortTikets } from '../utils/tikets';
 
 const initialState = {
   maxView: 5,
@@ -10,13 +10,10 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   const { type } = action;
-  console.log(action);
-  console.log(state);
   switch (type) {
     case ActionTypes.load: {
       const { currentSort } = state;
       const { tikets } = action.payload;
-      console.log(tikets);
       return {
         ...state,
         tikets: sortTikets(tikets, currentSort),

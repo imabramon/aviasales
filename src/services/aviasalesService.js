@@ -8,7 +8,7 @@ export const aviasalesService = axios.create({
 });
 
 const setSearchId = async () => {
-  const { data } = await aviasalesService.get('search');
+  const { data } = await aviasalesService.get('search').catch((e) => {});
   searchId = data.searchId;
 };
 
