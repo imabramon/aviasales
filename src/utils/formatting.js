@@ -7,7 +7,7 @@ export const formatTravelTime = (minutes) => {
 };
 
 export const formatFlightTime = (startDate, duration) => {
-  const dateFormat = 'H mm';
+  const dateFormat = 'H:mm';
   const endDate = addMinutes(startDate, duration);
   return `${format(startDate, dateFormat)} - ${format(endDate, dateFormat)}`;
 };
