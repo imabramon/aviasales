@@ -28,15 +28,6 @@ export const changeFilter = (filter) => ({
   },
 });
 
-export const loadMore = () => {
-  const tikets = Array.from({ length: 5 })
-    .fill(0)
-    .map((_, index) => makeTiketData(index));
-
-  return {
-    type: ActionTypes.loadMore,
-    payload: {
-      tikets,
-    },
-  };
-};
+export const loadMore = () => ({
+  type: ActionTypes.loadMore,
+});

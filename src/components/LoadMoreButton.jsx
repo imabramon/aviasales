@@ -20,9 +20,15 @@ const Button = styled.button`
   text-transform: uppercase;
 `;
 
-const LoadMoreButton = ({ loadMore }) => {
+const LoadMoreButton = ({ loadMore, areMoreTikets }) => {
+  if (!areMoreTikets) return null;
+
   return <Button onClick={() => loadMore()}>Показать еще 5 билетов</Button>;
 };
+
+const mapStateToProps = ({ maxView, tikets }) => ({
+  areMoreTikets: maxView < tikets.length,
+});
 
 const mapDispatchToProps = (dispatch) => {
   const { loadMore } = bindActionCreators(actions, dispatch);
@@ -32,4 +38,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(() => ({}), mapDispatchToProps)(LoadMoreButton);
+export default connect(mapStateToProps, mapDispatchToProps)(LoadMoreButton);

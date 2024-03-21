@@ -1,11 +1,11 @@
 import { ActionTypes } from './actionTypes';
-import { makeTiketData } from '../utils/tikets';
+import { makeTiketData, sortTikets } from '../utils/tikets';
 
 const initialState = {
-  searchId: null,
+  maxView: 5,
   currentSort: 'Самый дешевый',
   currentFilter: { Все: true },
-  tikets: Array.from({ length: 5 })
+  tikets: Array.from({ length: 100 })
     .fill(0)
     .map((_, index) => makeTiketData(index)),
 };
@@ -21,7 +21,12 @@ export const reducer = (state = initialState, action) => {
     }
     case ActionTypes.changeSort: {
       const { sort } = action.payload;
-      return { ...state, currentSort: sort };
+      const { tikets } = state;
+      return {
+        ...state,
+        currentSort: sort,
+        tikets: sortTikets(tikets, sort),
+      };
     }
 
     case ActionTypes.changeFilter: {
@@ -39,11 +44,14 @@ export const reducer = (state = initialState, action) => {
     }
 
     case ActionTypes.loadMore: {
-      const { tikets: oldTikets } = state;
-      const { tikets } = action.payload;
-      const newTikets = [...oldTikets, ...tikets].map((tiket, index) => ({ ...tiket, id: index }));
-
-      return { ...state, tikets: newTikets };
+      const { maxView, tikets } = state;
+      if (maxView > tikets.length) {
+        return {
+          ...state,
+          maxView: tikets.length - maxView,
+        };
+      }
+      return { ...state, maxView: maxView + 5 };
     }
     default:
       return state;
