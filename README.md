@@ -1,8 +1,13 @@
-# React + Vite
+# Ссылка на проект
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+https://aviasales-olive-five.vercel.app/
 
-Currently, two official plugins are available:
+# Примичания
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## index.html в в public
+
+Я юзаю вайт и там энтрипойнт это индекс html если его в паблик то он не видит скрипт, можно было бы но лезть в конфиг там что-то делать разбираться, мне кажется слишком много работы лишь для того чтобы передвинуть файлик. Поэтому положил его в корень
+
+## Дозагрузка
+
+В апи не видел про пагинацию посмотрел через постман он присылает 500 билетов, поэтому не обращал внимания на остановку так как чтобы ее протестить надо долистать первые 500 а кому это надо, плюс я бы смотрел на дозагрузку если бы там была пагинация но так как он загружает 500 билетов смысла на новую загрузку не вижу
