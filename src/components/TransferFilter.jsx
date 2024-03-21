@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import checkboxImage from '../assets/checkbox.svg';
-import checkboxCheckedImage from '../assets/checkbox--checked.svg';
 import { connect } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import * as actions from '../store/actions';
