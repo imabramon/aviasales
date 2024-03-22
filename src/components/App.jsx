@@ -8,8 +8,9 @@ import TransferFilter from './TransferFilter';
 import * as actions from '../store/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { LoadStub } from './LoadStub';
 
-const App = ({ load }) => {
+const App = ({ load, isLoading }) => {
   useEffect(() => {
     load();
   }, []);
@@ -17,10 +18,16 @@ const App = ({ load }) => {
   return (
     <Layout header={<Logo />} aside={<TransferFilter />}>
       <Filter />
-      <TiketList />
+      {isLoading ? <LoadStub /> : <TiketList />}
       <LoadMoreButton />
     </Layout>
   );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.tikets.length === 0,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -30,4 +37,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(() => ({}), mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
