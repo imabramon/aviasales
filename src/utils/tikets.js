@@ -20,19 +20,8 @@ export const sortOptimal = (a, b) => {
 export const filterAll = () => true;
 
 export const filterTransfer = (transferCount) => (tiket) => {
-  const { flights } = tiket;
   const tiketTransferCount = getTrasfersCount(tiket);
   return tiketTransferCount === transferCount;
-};
-
-const randomPrice = () => Math.floor(Math.random() * 10000 + 10000);
-
-const randomTime = () => Math.floor(Math.random() * 180 + 180);
-
-const randomTransfers = () => {
-  const length = Math.floor(Math.random() * 4);
-  if (length === 0) return [];
-  return Array.from({ length }).fill('YAR');
 };
 
 const sortFnByFilter = {
