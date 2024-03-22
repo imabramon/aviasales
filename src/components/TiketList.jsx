@@ -3,6 +3,7 @@ import Tiket from './Tiket';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { sortTikets, filterTikets } from '../utils/tikets';
+import { LoadStub } from './LoadStub';
 
 const Container = styled.div`
   display: flex;
@@ -11,6 +12,8 @@ const Container = styled.div`
 `;
 
 const TiketList = ({ tiketsData }) => {
+  if (tiketsData.length === 0) return <LoadStub />;
+
   const tikets = tiketsData.map((tiket) => {
     // console.log(tiket);
     return <Tiket key={tiket.id} {...tiket} />;
