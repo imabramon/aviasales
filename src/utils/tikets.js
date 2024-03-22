@@ -9,7 +9,7 @@ export const sortFast = (a, b) => {
 };
 
 const getTrasfersCount = (tiket) =>
-  tiket.flights.map(({ transfers }) => transfers.length).reduce((sum, x) => sum + x, 0);
+  tiket.flights.map(({ transfers }) => transfers.length).reduce((prev, x) => Math.max(prev, x), 0);
 
 const getOptimalValue = (tiket) => (getTime(tiket) / 60) * 1000 + tiket.price + getTrasfersCount(tiket) * 3000;
 
@@ -21,7 +21,7 @@ export const filterAll = () => true;
 
 export const filterTransfer = (transferCount) => (tiket) => {
   const { flights } = tiket;
-  const tiketTransferCount = flights.map((flight) => flight.transfers.length).reduce((sum, x) => sum + x, 0);
+  const tiketTransferCount = getTrasfersCount(tiket);
   return tiketTransferCount === transferCount;
 };
 
