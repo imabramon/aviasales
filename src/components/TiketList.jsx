@@ -22,7 +22,7 @@ const TiketList = ({ tiketsData }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { currentFilter, currentSort, tikets, maxView } = state;
+  const { currentFilter, tikets, maxView } = state;
 
   //const sortedTikets = sortTikets(tikets, currentSort);
   const filtredTikets = filterTikets(tikets, currentFilter);
