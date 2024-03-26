@@ -2,7 +2,7 @@ import { ActionTypes } from './actionTypes';
 import { sortTikets } from '../utils/tikets';
 
 const initialState = {
-  maxView: 5,
+  isStoped: false,
   currentSort: 'Самый дешевый',
   currentFilter: { Все: true },
   tikets: [],
@@ -46,14 +46,12 @@ export const reducer = (state = initialState, action) => {
     }
 
     case ActionTypes.loadMore: {
-      const { maxView, tikets } = state;
-      if (maxView > tikets.length) {
-        return {
-          ...state,
-          maxView: tikets.length - maxView,
-        };
-      }
-      return { ...state, maxView: maxView + 5 };
+      const { tikets } = state;
+      const { stop, tikets: newTikets } = action.payload;
+
+      if (stop) return { ...state, isStoped: true };
+
+      return { ...state, tikets: [...tikets, ...newTikets] };
     }
     default:
       return state;

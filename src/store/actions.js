@@ -16,7 +16,7 @@ export const changeFilter = (filter) => ({
 });
 
 export const load = () => async (dispatch) => {
-  const tikets = await getTikets();
+  const { tikets } = await getTikets();
   dispatch({
     type: ActionTypes.load,
     payload: {
@@ -25,6 +25,11 @@ export const load = () => async (dispatch) => {
   });
 };
 
-export const loadMore = () => ({
-  type: ActionTypes.loadMore,
-});
+export const loadMore = () => async (dispatch) => {
+  const { tikets, stop } = await getTikets();
+
+  dispatch({
+    type: ActionTypes.loadMore,
+    payload: { tikets, stop },
+  });
+};

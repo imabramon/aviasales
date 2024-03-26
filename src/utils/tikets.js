@@ -35,7 +35,6 @@ export const sortTikets = (tikets, filter) => {
   if (!(filter in sortFnByFilter)) {
     throw new Error('Нет такой сортировки');
   }
-
   return tikets.toSorted(sortFnByFilter[filter]);
 };
 

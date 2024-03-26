@@ -15,20 +15,19 @@ const TiketList = ({ tiketsData }) => {
   if (tiketsData.length === 0) return <EmptyStub />;
 
   const tikets = tiketsData.map((tiket) => {
-    // console.log(tiket);
     return <Tiket key={tiket.id} {...tiket} />;
   });
   return <Container>{tikets}</Container>;
 };
 
 const mapStateToProps = (state) => {
-  const { currentFilter, tikets, maxView } = state;
+  const { currentFilter, tikets, currentSort } = state;
 
-  //const sortedTikets = sortTikets(tikets, currentSort);
-  const filtredTikets = filterTikets(tikets, currentFilter);
+  const sortedTikets = sortTikets(tikets, currentSort);
+  const filtredTikets = filterTikets(sortedTikets, currentFilter);
 
   return {
-    tiketsData: filtredTikets.slice(0, maxView),
+    tiketsData: filtredTikets,
   };
 };
 

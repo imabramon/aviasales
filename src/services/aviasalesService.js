@@ -24,7 +24,10 @@ const authorized = (callback) => {
 };
 
 export const getTikets = authorized(async () => {
-  const { data } = await aviasalesService.get(`tickets?searchId=${searchId}`);
-  const { tickets } = data;
-  return tickets.map((tiket) => makeTiketFromJSON(tiket));
+  const res = await aviasalesService.get(`tickets?searchId=${searchId}`);
+
+  const { tickets, stop } = res.data;
+
+  if (stop) return { tikets: tickets, stop };
+  return { tikets: tickets.slice(0, 5).map((tiket) => makeTiketFromJSON(tiket)), stop };
 });

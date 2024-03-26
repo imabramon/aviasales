@@ -26,8 +26,8 @@ const LoadMoreButton = ({ loadMore, areMoreTikets }) => {
   return <Button onClick={() => loadMore()}>Показать еще 5 билетов</Button>;
 };
 
-const mapStateToProps = ({ maxView, tikets, currentFilter }) => ({
-  areMoreTikets: (maxView < tikets.length) & (Object.keys(currentFilter).length !== 0),
+const mapStateToProps = ({ isStoped }) => ({
+  areMoreTikets: !isStoped,
 });
 
 const mapDispatchToProps = (dispatch) => {
