@@ -29,7 +29,6 @@ export const LoadStub = () => {
       dispathDots();
     }, 200);
     return () => {
-      console.log('ended');
       clearInterval(id);
     };
   }, []);
