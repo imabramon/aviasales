@@ -18,7 +18,9 @@ module.exports = {
   rules: {
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-
+    'import/prefer-default-export': 'off',
+    'react/prop-types': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'react/jsx-props-no-spreading': 'off'
   },
 };

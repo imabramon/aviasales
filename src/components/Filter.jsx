@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import * as actions from '../store/actions';
 import { bindActionCreators } from 'redux';
+import * as actions from '../store/actions';
 
 const Container = styled.div`
   font-family: 'Open Sans';
@@ -32,13 +32,13 @@ const Item = styled.div`
   }
 `;
 
-const Filter = (props) => {
+function Filter(props) {
   const { selected, changeSort } = props;
   const filtersName = ['Самый дешевый', 'Самый быстрый', 'Оптимальный'];
 
-  const filters = filtersName.map((name, index) => (
+  const filters = filtersName.map((name) => (
     <Item
-      key={index}
+      key={name}
       $isSelected={name === selected}
       onClick={() => {
         changeSort(name);
@@ -49,7 +49,7 @@ const Filter = (props) => {
   ));
 
   return <Container>{filters}</Container>;
-};
+}
 
 const mapStateToProps = (state) => ({
   selected: state.currentSort,

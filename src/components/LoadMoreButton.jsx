@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import * as actions from '../store/actions';
 import { bindActionCreators } from 'redux';
+import * as actions from '../store/actions';
 
 const Button = styled.button`
   box-shadow: none;
@@ -20,21 +20,21 @@ const Button = styled.button`
   text-transform: uppercase;
 `;
 
-const LoadMoreButton = ({ loadMore, areMoreTikets }) => {
+function LoadMoreButton({ loadMore, areMoreTikets }) {
   if (!areMoreTikets) return null;
 
   return <Button onClick={() => loadMore()}>Показать еще 5 билетов</Button>;
-};
+}
 
-const mapStateToProps = ({ isStoped }) => ({
-  areMoreTikets: !isStoped,
+const mapStateToProps = ({areMoreTikets}) => ({
+  areMoreTikets
 });
 
 const mapDispatchToProps = (dispatch) => {
-  const { loadMore } = bindActionCreators(actions, dispatch);
+  const { viewMore } = bindActionCreators(actions, dispatch);
 
   return {
-    loadMore,
+    loadMore: viewMore,
   };
 };
 

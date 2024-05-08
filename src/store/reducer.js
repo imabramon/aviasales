@@ -6,6 +6,8 @@ const initialState = {
   currentSort: 'Самый дешевый',
   currentFilter: { Все: true },
   tikets: [],
+  maxView: 5,
+  areMoreTikets: true,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -52,6 +54,16 @@ export const reducer = (state = initialState, action) => {
       if (stop) return { ...state, isStoped: true };
 
       return { ...state, tikets: [...tikets, ...newTikets] };
+    }
+
+    case ActionTypes.viewMore: {
+      const { maxView } = state;
+      return { ...state, maxView: maxView + 5 };
+    }
+
+    case ActionTypes.setButtonState: {
+      const { areMoreTikets } = action.payload;
+      return { ...state, areMoreTikets };
     }
     default:
       return state;

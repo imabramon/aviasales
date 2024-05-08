@@ -15,14 +15,43 @@ export const changeFilter = (filter) => ({
   },
 });
 
+let erorrsCount = 0;
+
+const getAllTikets = async (dispatch) => {
+  console.log('getAllTikets run', erorrsCount);
+  try {
+    const { tikets, stop } = await getTikets();
+    dispatch({
+      type: ActionTypes.loadMore,
+      payload: {
+        tikets,
+        stop,
+      },
+    });
+
+    if (!stop) {
+      await getAllTikets(dispatch);
+    }
+  } catch (e) {
+    if (erorrsCount > 3) {
+      return;
+    }
+
+    erorrsCount += 1;
+    getAllTikets(dispatch);
+  }
+};
+
 export const load = () => async (dispatch) => {
-  const { tikets } = await getTikets();
-  dispatch({
-    type: ActionTypes.load,
-    payload: {
-      tikets,
-    },
-  });
+  // const { tikets } = await getTikets();
+  // dispatch({
+  //   type: ActionTypes.load,
+  //   payload: {
+  //     tikets,
+  //   },
+  // });
+
+  getAllTikets(dispatch);
 };
 
 export const loadMore = () => async (dispatch) => {
@@ -33,3 +62,14 @@ export const loadMore = () => async (dispatch) => {
     payload: { tikets, stop },
   });
 };
+
+export const viewMore = () => ({
+  type: ActionTypes.viewMore,
+});
+
+export const setButtonState = (state) => ({
+  type: ActionTypes.setButtonState,
+  payload: {
+    areMoreTikets: state,
+  },
+});

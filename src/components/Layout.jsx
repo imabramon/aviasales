@@ -26,7 +26,7 @@ const Aside = styled.aside`
   grid-area: aside;
 `;
 
-const Layout = (props) => {
+function Layout(props) {
   const { header, children, aside } = props;
 
   return (
@@ -36,6 +36,6 @@ const Layout = (props) => {
       <Aside>{aside}</Aside>
     </Container>
   );
-};
+}
 
 export default Layout;

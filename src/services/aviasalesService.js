@@ -8,19 +8,17 @@ export const aviasalesService = axios.create({
 });
 
 const setSearchId = async () => {
-  const { data } = await aviasalesService.get('search').catch((e) => {});
+  const { data } = await aviasalesService.get('search').catch(() => {});
   searchId = data.searchId;
 };
 
-const authorized = (callback) => {
-  return async (...args) => {
-    if (!searchId) {
-      await setSearchId();
-      return callback(...args);
-    }
-
+const authorized = (callback) => async (...args) => {
+  if (!searchId) {
+    await setSearchId();
     return callback(...args);
-  };
+  }
+
+  return callback(...args);
 };
 
 export const getTikets = authorized(async () => {
@@ -29,5 +27,5 @@ export const getTikets = authorized(async () => {
   const { tickets, stop } = res.data;
 
   if (stop) return { tikets: tickets, stop };
-  return { tikets: tickets.slice(0, 5).map((tiket) => makeTiketFromJSON(tiket)), stop };
+  return { tikets: tickets.map((tiket) => makeTiketFromJSON(tiket)), stop };
 });

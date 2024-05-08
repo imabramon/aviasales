@@ -4,18 +4,13 @@ export const getTime = (tiket) => tiket.flights.map(({ travelTime }) => travelTi
 
 export const sortLowPrice = (a, b) => a.price - b.price;
 
-export const sortFast = (a, b) => {
-  return getTime(a) - getTime(b);
-};
+export const sortFast = (a, b) => getTime(a) - getTime(b);
 
-const getTrasfersCount = (tiket) =>
-  tiket.flights.map(({ transfers }) => transfers.length).reduce((prev, x) => Math.max(prev, x), 0);
+const getTrasfersCount = (tiket) => tiket.flights.map(({ transfers }) => transfers.length).reduce((prev, x) => Math.max(prev, x), 0);
 
 const getOptimalValue = (tiket) => (getTime(tiket) / 60) * 1000 + tiket.price + getTrasfersCount(tiket) * 3000;
 
-export const sortOptimal = (a, b) => {
-  return getOptimalValue(a) - getOptimalValue(b);
-};
+export const sortOptimal = (a, b) => getOptimalValue(a) - getOptimalValue(b);
 
 export const filterAll = () => true;
 
@@ -28,7 +23,7 @@ const sortFnByFilter = {
   'Самый дешевый': sortLowPrice,
   'Самый быстрый': sortFast,
   // prettier-ignore
-  'Оптимальный': sortOptimal,
+  Оптимальный: sortOptimal,
 };
 
 export const sortTikets = (tikets, filter) => {
@@ -46,13 +41,11 @@ const filterFnByName = {
   '3 пересадки': filterTransfer(3),
 };
 
-const orFilter = (filterFns) => {
-  return (tiket) => {
-    for (const filter of filterFns) {
-      if (filter(tiket)) return true;
-    }
-    return false;
-  };
+const orFilter = (filterFns) => (tiket) => {
+  for (const filter of filterFns) {
+    if (filter(tiket)) return true;
+  }
+  return false;
 };
 
 export const filterTikets = (tikets, filter) => {

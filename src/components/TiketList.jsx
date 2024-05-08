@@ -1,9 +1,11 @@
 import React from 'react';
-import Tiket from './Tiket';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Tiket from './Tiket';
 import { sortTikets, filterTikets } from '../utils/tikets';
 import { EmptyStub } from './EmptyStub';
+import * as actions from '../store/actions';
 
 const Container = styled.div`
   display: flex;
@@ -11,24 +13,41 @@ const Container = styled.div`
   gap: 20px;
 `;
 
-const TiketList = ({ tiketsData }) => {
-  if (tiketsData.length === 0) return <EmptyStub />;
+function TiketList({
+  tiketsData, maxView, setButtonState, areMoreTikets,
+}) {
+  if (tiketsData.length === 0) {
+    if (areMoreTikets) setButtonState(false);
+    return <EmptyStub />;
+  }
 
-  const tikets = tiketsData.map((tiket) => {
-    return <Tiket key={tiket.id} {...tiket} />;
-  });
+  if (!areMoreTikets) setButtonState(true);
+
+  const tikets = tiketsData.slice(0, maxView).map((tiket) => <Tiket key={tiket.id} {...tiket} />);
   return <Container>{tikets}</Container>;
-};
+}
 
 const mapStateToProps = (state) => {
-  const { currentFilter, tikets, currentSort } = state;
+  const {
+    currentFilter, tikets, currentSort, maxView, areMoreTikets,
+  } = state;
 
   const sortedTikets = sortTikets(tikets, currentSort);
   const filtredTikets = filterTikets(sortedTikets, currentFilter);
 
   return {
     tiketsData: filtredTikets,
+    maxView,
+    areMoreTikets,
   };
 };
 
-export default connect(mapStateToProps)(TiketList);
+const mapDispatchToProps = (dispatch) => {
+  const { setButtonState } = bindActionCreators(actions, dispatch);
+
+  return {
+    setButtonState,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TiketList);
