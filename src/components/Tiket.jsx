@@ -69,11 +69,13 @@ const InfoItemDescription = styled.span`
   line-height: 21px;
 `;
 
-const Tiket = (props) => {
+function Tiket(props) {
   const { price, flights: flightsData, companyLogoSrc } = props;
 
   const flights = flightsData.map((flightData, index) => {
-    const { cites, dateData, travelTime, transfers } = flightData;
+    const {
+      cites, dateData, travelTime, transfers,
+    } = flightData;
     const date = new Date(dateData);
     const transfersCount = transfers.length;
     return (
@@ -87,7 +89,10 @@ const Tiket = (props) => {
           <InfoItemDescription>{formatTravelTime(travelTime)}</InfoItemDescription>
         </InfoItem>
         <InfoItem>
-          <InfoItemTitle> {formatTransfersCount(transfersCount)}</InfoItemTitle>
+          <InfoItemTitle>
+            {' '}
+            {formatTransfersCount(transfersCount)}
+          </InfoItemTitle>
           <InfoItemDescription>{formatTransfers(transfers)}</InfoItemDescription>
         </InfoItem>
       </Flight>
@@ -101,6 +106,6 @@ const Tiket = (props) => {
       <Flights>{flights}</Flights>
     </Container>
   );
-};
+}
 
 export default Tiket;

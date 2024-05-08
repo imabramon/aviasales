@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { BarLoader } from 'react-spinners';
 import Layout from './Layout';
 import Logo from './Logo';
 import Filter from './Filter';
@@ -10,7 +11,7 @@ import TransferFilter from './TransferFilter';
 import * as actions from '../store/actions';
 import { LoadStub } from './LoadStub';
 
-function App({ load, isLoading }) {
+function App({ load, isFirstLoading, isLoading }) {
   useEffect(() => {
     load();
   }, []);
@@ -18,14 +19,16 @@ function App({ load, isLoading }) {
   return (
     <Layout header={<Logo />} aside={<TransferFilter />}>
       <Filter />
-      {isLoading ? <LoadStub /> : <TiketList />}
+      {isLoading ? <BarLoader color="#2196f3" width="100%" /> : null}
+      {isFirstLoading ? <LoadStub /> : <TiketList />}
       <LoadMoreButton />
     </Layout>
   );
 }
 
 const mapStateToProps = (state) => ({
-  isLoading: state.tikets.length === 0,
+  isLoadingFirst: state.tikets.length === 0,
+  isLoading: !state.isStoped,
 });
 
 const mapDispatchToProps = (dispatch) => {

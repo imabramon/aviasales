@@ -18,7 +18,6 @@ export const changeFilter = (filter) => ({
 let erorrsCount = 0;
 
 const getAllTikets = async (dispatch) => {
-  console.log('getAllTikets run', erorrsCount);
   try {
     const { tikets, stop } = await getTikets();
     dispatch({
@@ -43,14 +42,6 @@ const getAllTikets = async (dispatch) => {
 };
 
 export const load = () => async (dispatch) => {
-  // const { tikets } = await getTikets();
-  // dispatch({
-  //   type: ActionTypes.load,
-  //   payload: {
-  //     tikets,
-  //   },
-  // });
-
   getAllTikets(dispatch);
 };
 

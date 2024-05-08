@@ -13,15 +13,6 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
   const { type } = action;
   switch (type) {
-    case ActionTypes.load: {
-      const { currentSort } = state;
-      const { tikets } = action.payload;
-      return {
-        ...state,
-        tikets: sortTikets(tikets, currentSort),
-        maxView: 5,
-      };
-    }
     case ActionTypes.changeSort: {
       const { sort } = action.payload;
       const { tikets } = state;
