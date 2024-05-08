@@ -66,12 +66,12 @@ const Title = styled.h2`
   padding-left: 20px;
 `;
 
-const TransferFilter = ({ filter, changeFilter }) => {
+function TransferFilter({ filter, changeFilter }) {
   const filtersName = ['Все', 'Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'];
   const filters = filtersName.map((name, index) => (
     <ListItem key={index}>
       <Label>
-        <Checkbox checked={name in filter} onChange={() => changeFilter(name)} />
+        <Checkbox checked={'Все' in filter || name in filter} onChange={() => changeFilter(name)} />
         <LabelTitle>{name}</LabelTitle>
       </Label>
     </ListItem>
@@ -83,7 +83,7 @@ const TransferFilter = ({ filter, changeFilter }) => {
       <List>{filters}</List>
     </Container>
   );
-};
+}
 
 const mapStateToProps = (state) => ({
   filter: state.currentFilter,
