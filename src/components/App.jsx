@@ -12,17 +12,19 @@ import TransferFilter from './TransferFilter';
 import * as actions from '../store/actions';
 import { LoadStub } from './LoadStub';
 import 'react-toastify/dist/ReactToastify.css';
+import { useInternetWatcher } from '../hooks/useInternetWatcher';
 
 function App({ load, isFirstLoading, isLoading }) {
-  const notify = () => toast('Не все билеты загружены. Перезагрузите, чтобы увидеть все билеты');
+  const serverErrorNotify = () => toast('Не все билеты загружены. Перезагрузите, чтобы увидеть все билеты');
+  const offlineNotify = () => toast('Соеденение потеряно');
+  const onlineNotify = () => toast('Соеденение восстановлено');
   useEffect(() => {
     load(() => {
-      notify();
+      serverErrorNotify();
     });
   }, []);
 
-
-
+  useInternetWatcher(onlineNotify, offlineNotify);
   return (
 
     <Layout header={<Logo />} aside={<TransferFilter />}>
