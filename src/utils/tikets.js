@@ -20,25 +20,56 @@ export const filterTransfer = (transferCount) => (tiket) => {
   return tiketTransferCount === transferCount;
 };
 
+const mapSortNameToKey = (name) => {
+  switch (name) {
+    case 'Самый дешевый':
+      return 'chippest';
+    case 'Самый быстрый':
+      return 'fastest';
+    case 'Оптимальный':
+      return 'optimal';
+    default:
+      throw new Error('Нет такого имени в сортировках');
+  }
+};
+
 const sortFnByFilter = {
-  'Самый дешевый': sortLowPrice,
-  'Самый быстрый': sortFast,
-  Оптимальный: sortOptimal,
+  chippest: sortLowPrice,
+  fastest: sortFast,
+  optimal: sortOptimal,
 };
 
 export const sortTikets = (tikets, filter) => {
-  if (!(filter in sortFnByFilter)) {
+  const filterKey = mapSortNameToKey(filter);
+  if (!(filterKey in sortFnByFilter)) {
     throw new Error('Нет такой сортировки');
   }
-  return tikets.toSorted(sortFnByFilter[filter]);
+  return tikets.toSorted(sortFnByFilter[filterKey]);
+};
+
+const mapFilterNameToKey = (name) => {
+  switch (name) {
+    case 'Все':
+      return 'all';
+    case 'Без пересадок':
+      return 'without';
+    case '1 пересадка':
+      return 'transfer1';
+    case '2 пересадки':
+      return 'transfer2';
+    case '3 пересадки':
+      return 'trasnfer3';
+    default:
+      throw new Error('Нет такого имени в фильтрах');
+  }
 };
 
 const filterFnByName = {
-  Все: filterAll,
-  'Без пересадок': filterTransfer(0),
-  '1 пересадка': filterTransfer(1),
-  '2 пересадки': filterTransfer(2),
-  '3 пересадки': filterTransfer(3),
+  all: filterAll,
+  without: filterTransfer(0),
+  transfer1: filterTransfer(1),
+  transfer2: filterTransfer(2),
+  transfer3: filterTransfer(3),
 };
 
 const orFilter = (filterFns) => (tiket) => {
@@ -50,7 +81,7 @@ const orFilter = (filterFns) => (tiket) => {
 
 export const filterTikets = (tikets, filter) => {
   const filterFns = Object.keys(filter)
-    .map((filter) => filterFnByName[filter])
+    .map((filter) => filterFnByName[mapFilterNameToKey(filter)])
     .filter((x) => x);
   const filterFn = orFilter(filterFns);
 
