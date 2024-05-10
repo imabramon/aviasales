@@ -6,7 +6,8 @@ export const sortLowPrice = (a, b) => a.price - b.price;
 
 export const sortFast = (a, b) => getTime(a) - getTime(b);
 
-const getTrasfersCount = (tiket) => tiket.flights.map(({ transfers }) => transfers.length).reduce((prev, x) => Math.max(prev, x), 0);
+const getTrasfersCount = (tiket) =>
+  tiket.flights.map(({ transfers }) => transfers.length).reduce((prev, x) => Math.max(prev, x), 0);
 
 const getOptimalValue = (tiket) => (getTime(tiket) / 60) * 1000 + tiket.price + getTrasfersCount(tiket) * 3000;
 
@@ -22,7 +23,6 @@ export const filterTransfer = (transferCount) => (tiket) => {
 const sortFnByFilter = {
   'Самый дешевый': sortLowPrice,
   'Самый быстрый': sortFast,
-  // prettier-ignore
   Оптимальный: sortOptimal,
 };
 
