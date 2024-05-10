@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { BarLoader } from 'react-spinners';
+import { ToastContainer, toast } from 'react-toastify';
 import Layout from './Layout';
 import Logo from './Logo';
 import Filter from './Filter';
@@ -10,14 +11,22 @@ import LoadMoreButton from './LoadMoreButton';
 import TransferFilter from './TransferFilter';
 import * as actions from '../store/actions';
 import { LoadStub } from './LoadStub';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App({ load, isFirstLoading, isLoading }) {
+  const notify = () => toast('Не все билеты загружены. Перезагрузите, чтобы увидеть все билеты');
   useEffect(() => {
-    load();
+    load(() => {
+      notify();
+    });
   }, []);
 
+
+
   return (
+
     <Layout header={<Logo />} aside={<TransferFilter />}>
+      <ToastContainer />
       <Filter />
       {isLoading ? <BarLoader color="#2196f3" width="100%" /> : null}
       {isFirstLoading ? <LoadStub /> : <TiketList />}

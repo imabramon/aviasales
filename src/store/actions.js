@@ -16,8 +16,9 @@ export const changeFilter = (filter) => ({
 });
 
 let erorrsCount = 0;
+let isErrorBeen = false;
 
-const getAllTikets = async (dispatch) => {
+const getAllTikets = async (dispatch, onError) => {
   try {
     const { tikets, stop } = await getTikets();
     dispatch({
@@ -29,20 +30,25 @@ const getAllTikets = async (dispatch) => {
     });
 
     if (!stop) {
-      await getAllTikets(dispatch);
+      await getAllTikets(dispatch, onError);
     }
   } catch (e) {
     if (erorrsCount > 3) {
+      if (!isErrorBeen) {
+        onError();
+        isErrorBeen = true;
+      }
       return;
     }
 
     erorrsCount += 1;
-    getAllTikets(dispatch);
+    getAllTikets(dispatch, onError);
   }
 };
 
-export const load = () => async (dispatch) => {
-  getAllTikets(dispatch);
+export const load = (onError) => async (dispatch) => {
+  isErrorBeen = false;
+  getAllTikets(dispatch, onError);
 };
 
 export const loadMore = () => async (dispatch) => {
