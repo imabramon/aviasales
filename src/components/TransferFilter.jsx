@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import * as actions from '../store/actions';
+import { filterAll } from '../utils/tikets';
 
 const List = styled.ul`
   list-style: none;
@@ -66,12 +67,12 @@ const Title = styled.h2`
   padding-left: 20px;
 `;
 
-function TransferFilter({ filter, changeFilter }) {
+function TransferFilter({ filter, changeFilter, filterAll }) {
   const filtersName = ['Все', 'Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'];
   const filters = filtersName.map((name, index) => (
     <ListItem key={index}>
       <Label>
-        <Checkbox checked={'Все' in filter || name in filter} onChange={() => changeFilter(name)} />
+        <Checkbox checked={filterAll || name in filter} onChange={() => changeFilter(name)} />
         <LabelTitle>{name}</LabelTitle>
       </Label>
     </ListItem>
@@ -87,6 +88,7 @@ function TransferFilter({ filter, changeFilter }) {
 
 const mapStateToProps = (state) => ({
   filter: state.currentFilter,
+  filterAll: state.filterAll,
 });
 
 const mapDispathToProps = (dispatch) => {

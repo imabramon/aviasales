@@ -4,7 +4,14 @@ import { sortTikets } from '../utils/tikets';
 const initialState = {
   isStoped: false,
   currentSort: 'Самый дешевый',
-  currentFilter: { Все: true },
+  currentFilter: {
+    // Все: true,
+    // 'Без пересадок': true,
+    // '1 пересадка': true,
+    // '2 пересадки': true,
+    // '3 пересадки': true,
+  },
+  filterAll: true,
   tikets: [],
   maxView: 5,
   areMoreTikets: true,
@@ -26,16 +33,24 @@ export const reducer = (state = initialState, action) => {
 
     case ActionTypes.changeFilter: {
       const { filter } = action.payload;
-      const { currentFilter } = state;
-      const newFilter = { ...currentFilter };
 
-      if (filter in currentFilter) {
-        delete newFilter[filter];
-      } else {
-        newFilter[filter] = true;
+      switch (filter) {
+        case 'Все': {
+          return { ...state, filterAll: !state.filterAll, currentFilter: {} };
+        }
+        default: {
+          const { currentFilter } = state;
+          const newFilter = { ...currentFilter };
+
+          if (filter in currentFilter) {
+            delete newFilter[filter];
+          } else {
+            newFilter[filter] = true;
+          }
+
+          return { ...state, currentFilter: newFilter, filterAll: false };
+        }
       }
-
-      return { ...state, currentFilter: newFilter };
     }
 
     case ActionTypes.loadMore: {

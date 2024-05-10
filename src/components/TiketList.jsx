@@ -29,11 +29,11 @@ function TiketList({
 
 const mapStateToProps = (state) => {
   const {
-    currentFilter, tikets, currentSort, maxView, areMoreTikets,
+    currentFilter, tikets, currentSort, maxView, areMoreTikets, filterAll,
   } = state;
 
   const sortedTikets = sortTikets(tikets, currentSort);
-  const filtredTikets = filterTikets(sortedTikets, currentFilter);
+  const filtredTikets = !filterAll ? filterTikets(sortedTikets, currentFilter) : sortedTikets;
 
   return {
     tiketsData: filtredTikets,
